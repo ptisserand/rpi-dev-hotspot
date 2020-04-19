@@ -1,0 +1,25 @@
+- name: Restart dhcpcd
+  systemd:
+    name: dhcpcd
+    state: restarted
+    enabled: yes
+  become: true
+
+- name: Restart dnsmasq
+  systemd:
+    name: dnsmasq
+    state: restarted
+    enabled: yes
+  become: true
+
+- name: Restart hostapd
+  systemd:
+    name: hostapd
+    state: restarted
+    masked: no
+    enabled: yes
+  become: true
+
+- name: Save iptables
+  shell: "iptables-save > /etc/iptables.ipv4.nat"
+  become: true
