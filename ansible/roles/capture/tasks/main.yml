@@ -1,0 +1,24 @@
+- name: Install capture software
+  apt:
+    name:
+      - tcpdump
+      - tshark
+      - ettercap-text-only
+      - sslsplit
+    state: present
+  become: true
+
+- name: Install pip
+  apt:
+    name: 
+      - python3-pip
+      - python3-venv
+    state: present
+  become: true
+
+# mitmproxy in raspbian repository is a bit obsolete
+- name: Install mitmproxy with pip
+  pip:
+    name: mitmproxy==5.1.1
+    virtualenv: "{{ ansible_user_dir }}/mitmproxy"
+    virtualenv_command: "{{ ansible_python.executable }} -m venv"
